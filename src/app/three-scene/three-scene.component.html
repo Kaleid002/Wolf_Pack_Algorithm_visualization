@@ -1,25 +1,53 @@
 <canvas class="canvas" #canvas></canvas>
 
 <div class="controls">
-  <label class="rotateX">
-    Rotate X:
-    <input type="range" [(ngModel)]="rotateX" step="0.001" min="0.001" max="0.1" />
-    <span>{{rotateX}}</span>
-  </label>
-  <label class="rotateY">
-    Rotate Y:
-    <input type="range" [(ngModel)]="rotateY" step="0.001" min="0.001" max="0.1" />
-    <span>{{rotateY}}</span>
-  </label>
-  <button class="animate_btn" (click)="toggleAnimation()">
-    {{ isAnimating ? 'STOP' : 'START' }}
-  </button>
+  <div class="rotate_speed">
+    <label class="rotateX">
+      Rotate X:
+      <input type="range" [(ngModel)]="rotateX" step="0.001" min="0" max="0.01" />
+      <span>{{rotateX}}</span>
+    </label>
+    <label class="rotateY">
+      Rotate Y:
+      <input type="range" [(ngModel)]="rotateY" step="0.001" min="0" max="0.01" />
+      <span>{{rotateY}}</span>
+    </label>
+    <button class="animate_btn" (click)="toggleAnimation()">
+      {{ isAnimating ? 'STOP' : 'START' }}
+    </button>
+  </div>
+
   <div class="preference">
     <label class="pointsColor">Points Color：
-    <input type="color" [(ngModel)]="pointColor" (change)="updatePointColor()" />
-  </label>
-  <label class="backgroundColor">Background Color：
-    <input type="color" [(ngModel)]="backgroundColor" (change)="updateBackgroundColor()" />
-  </label>
+      <input type="color" [(ngModel)]="pointColor" (input)="updatePointColor()" />
+    </label>
+    <label class="backgroundColor">Background Color：
+      <input type="color" [(ngModel)]="backgroundColor" (input)="updateBackgroundColor()" />
+    </label>
   </div>
+
+  <form class="scope_adjust" (submit)="updateScope($event)">
+    <label>
+      X-Range:
+      <input type="number" name="XMin" [(ngModel)]="scope.x.min">
+      -
+      <input type="number" name="XMax" [(ngModel)]="scope.x.max">
+    </label>
+
+    <label>
+      Y-Range:
+      <input type="number" name="YMin" [(ngModel)]="scope.y.min">
+      -
+      <input type="number" name="YMax" [(ngModel)]="scope.y.max">
+    </label>
+
+    <label>
+      Z-Range:
+      <input type="number" name="ZMin" [(ngModel)]="scope.z.min">
+      -
+      <input type="number" name="ZMax" [(ngModel)]="scope.z.max">
+    </label>
+
+    <button type="submit">變更</button>
+  </form>
 </div>
